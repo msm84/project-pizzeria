@@ -86,6 +86,7 @@
       thisProduct.formInputs = thisProduct.form.querySelectorAll(select.all.formInputs);
       thisProduct.cartButton = thisProduct.element.querySelector(select.menuProduct.cartButton);
       thisProduct.priceElem = thisProduct.element.querySelector(select.menuProduct.priceElem);
+      thisProduct.imageWrapper = thisProduct.element.querySelector(select.menuProduct.imageWrapper);
     }
     initAccordion(){
       const thisProduct = this;
@@ -132,16 +133,18 @@
 
       console.log('Wywołana metoda initOrderForm');
     }
+
     processOrder(){
       const thisProduct = this;
 
       /* read all data from the form (using utils.serializeFormToObject) and save it to const formData */
       const formData = utils.serializeFormToObject(thisProduct.form);
       console.log('formData', formData);
-      console.log('Wywołana metoda processOrder');
+      //console.log('Wywołana metoda processOrder');
       /* set variable price to equal thisProduct.data.price */
-      let price = thisProduct.data.price;
+      let price = thisProduct.data.price; // tutaj się odnosimy do data z konstruktora, czyli parametru
       /* START LOOP: for each paramId in thisProduct.data.params */
+      console.log(thisProduct.data.params);
       for (let paramId in thisProduct.data.params){
         /* save the element in thisProduct.data.params with key paramId as const param */
         const param = thisProduct.data.params[paramId];
@@ -151,8 +154,8 @@
           const option = param.options[optionId];
 
           /* find selected options */
-          const optionSelected = formData.hasOwnProperty(paramId) &&
-            formData[paramId].indexOf(optionId) > -1;
+          const optionSelected = formData.hasOwnProperty(paramId) &&  //sprawdzamy, czy jest paramID w formData
+            formData[paramId].indexOf(optionId) > -1;// sprawdzamy, czy jest w tablicy, tj. index 0 lub 1 lub 2 etc.//
             //console.log(optionSelected);
             /* START IF: if option is selected and option is not default */
           if(optionSelected && !option.default){
@@ -164,8 +167,20 @@
           } else if (!optionSelected && option.default){
             /* deduct price of option from price */
             price -= option.price;
-            console.log(price);
             /* END ELSE IF: if option is not selected and option is default */
+          }
+          // TUTAJ DODAĆ OBSŁUGĘ OBRAZKÓW - IF ELSE IF - później jeszcze dokładnie popatrzeć
+
+          const activeImages = thisProduct.imageWrapper.querySelectorAll('.' + paramId + '-' + optionId);
+          console.log('activeImages', activeImages);
+          if(optionSelected) {
+            for (let activeImage of activeImages) {
+              activeImage.classList.add(classNames.menuProduct.imageVisible);
+            }
+          } else {
+            for (let activeImage of activeImages) {
+              activeImage.classList.remove(classNames.menuProduct.imageVisible);
+            }
           }
           /* END LOOP: for each optionId in param.options */
         }
@@ -179,7 +194,7 @@
   const app = {
     initMenu: function(){
       const thisApp = this;
-      console.log('thisApp.data', thisApp.data);
+      //console.log('thisApp.data', thisApp.data);
       for (let productData in thisApp.data.products){
         new Product(productData, thisApp.data.products[productData]);
       }
@@ -200,7 +215,6 @@
       thisApp.initMenu();
     },
   };
-
 
   app.init();
 }
