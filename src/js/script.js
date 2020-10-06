@@ -147,24 +147,22 @@
         event.preventDefault();
         thisProduct.processOrder();
       });
-
       for(let input of thisProduct.formInputs){
         input.addEventListener('change', function(){
           thisProduct.processOrder();
         });
       }
-
       thisProduct.cartButton.addEventListener('click', function(event){
         event.preventDefault();
         thisProduct.processOrder();
+        thisProduct.addToCart();
       });
 
       console.log('Wywołana metoda initOrderForm');
     }
-
     processOrder(){
       const thisProduct = this;
-
+      thisProduct.params = {};
       /* read all data from the form (using utils.serializeFormToObject) and save it to const formData */
       const formData = utils.serializeFormToObject(thisProduct.form);
       console.log('formData', formData);
@@ -201,7 +199,17 @@
 
           const activeImages = thisProduct.imageWrapper.querySelectorAll('.' + paramId + '-' + optionId);
           console.log('activeImages', activeImages);
+
           if(optionSelected) {
+
+            if(!thisProduct.params[paramId]){
+              thisProduct.params[paramId] = {
+                label: param.label,
+                options: {},
+              };
+            }
+            thisProduct.params[paramId].options[optionId] = option.label;
+
             for (let activeImage of activeImages) {
               activeImage.classList.add(classNames.menuProduct.imageVisible);
             }
@@ -214,12 +222,15 @@
         }
         /* END LOOP: for each paramId in thisProduct.data.params */
       }
-      /* multiply price by amount, W ten sposób, tuż przed wyświetleniem ceny obliczonej z uwzględnieniem opcji, pomnożymy ją przez ilość sztuk wybraną w widgecie! */
-      price *= thisProduct.amountWidget.value;
-      /* set the contents of thisProduct.priceElem to be the value of variable price */
-      thisProduct.priceElem.innerHTML = price;
-    }
+      /* multiply price by amount */
+      thisProduct.priceSingle = price;
+      thisProduct.price = thisProduct.priceSingle * thisProduct.amountWidget.value;
 
+      /* set the contents of thisProduct.priceElem to be the value of variable price */
+      thisProduct.priceElem.innerHTML = thisProduct.price;
+
+      console.log(thisProduct.params);
+    }
     initAmountWidget(){
       const thisProduct = this;
 
@@ -227,6 +238,12 @@
       thisProduct.amountWidgetElem.addEventListener('updated', function(){
         thisProduct.processOrder();
       });
+    }
+    addToCart(){
+      const thisProduct = this;
+      thisProduct.name = thisProduct.data.name;
+      thisProduct.amount = thisProduct.amountWidget.value;
+      app.cart.add(thisProduct);
     }
   }
 
@@ -309,6 +326,7 @@
       thisCart.dom = {};
       thisCart.dom.wrapper = element;
       thisCart.dom.toggleTrigger = thisCart.dom.wrapper.querySelector(select.cart.toggleTrigger);
+      thisCart.dom.productList = thisCart.dom.wrapper.querySelector(select.cart.productList);
       console.log('thisCart.dom.toggleTrigger', thisCart.dom.toggleTrigger);
     }
 
@@ -319,8 +337,17 @@
         thisCart.dom.wrapper.classList.toggle(classNames.cart.wrapperActive);
       });
     }
-  }
 
+    add(menuProduct){
+      const thisCart = this;
+      const generatedHTML = templates.cartProduct(menuProduct);
+      thisCart.element = utils.createDOMFromHTML(generatedHTML);
+      const cartContainer = document.querySelector(select.cart.productList);
+      cartContainer.appendChild(thisCart.element);
+
+      //console.log('adding product', menuProduct);
+    }
+  }
 
   const app = {
     initMenu: function(){
@@ -341,7 +368,7 @@
       const thisApp = this;
 
       const cartElem = document.querySelector(select.containerOf.cart);
-      thisApp.cart = new Cart(cartElem);
+      thisApp.cart = new Cart(cartElem); // -> outside of this function instance of cart can be called as "app.cart"
     },
 
     init: function(){
@@ -351,9 +378,9 @@
       console.log('classNames:', classNames);
       console.log('settings:', settings);
       console.log('templates:', templates);
+      thisApp.initCart();
       thisApp.initData();
       thisApp.initMenu();
-      thisApp.initCart();
     },
   };
 
