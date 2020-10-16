@@ -12,13 +12,16 @@ const app = {
     }
   },
 
-  initPages: function() {
+  initPages: function() { //funkcja pozwalająca na zmienę podstron bez przeładowania
     const thisApp = this;
     thisApp.pages = Array.from(document.querySelector(select.containerOf.pages).children);
-    console.log(thisApp.pages);
-    thisApp.navLinks = Array.from(document.querySelectorAll(select.nav.links));
+    //console.log(thisApp.pages);
 
-    console.log(thisApp.pages);
+    thisApp.navLinks = Array.from(document.querySelectorAll(select.nav.links));
+    //console.log(thisApp.pages);
+
+    thisApp.pageLinks = Array.from(document.querySelectorAll('.link'));
+
     let pagesMatchingHash = [];
 
     if (window.location.hash.length > 2) {
@@ -41,6 +44,17 @@ const app = {
         const href = pageId.replace('#', '');
         /* TODO activate page*/
         thisApp.activatePage(href);
+      });
+    }
+
+    for(let link of thisApp.pageLinks) {
+      link.addEventListener('click', function(event) {
+        const clickedElement = this;
+        event.preventDefault();
+
+        const pageId = clickedElement.getAttribute('href').replace('#', '');
+        thisApp.activatePage(pageId);
+        link.classList.add('active');
       });
     }
 

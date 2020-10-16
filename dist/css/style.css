@@ -255,6 +255,7 @@ input.error, select.error {
   padding: 60px 0 96px 0;
   background: #333;
   color: #fff;
+  margin-bottom: 115px;
 }
 
 .header__wrapper {
@@ -836,5 +837,182 @@ input.error, select.error {
   -ms-flex-pack: justify;
       justify-content: space-between;
   margin: 48px auto;
+}
+
+/* 3 boxes on front page */
+.row {
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-pack: justify;
+      justify-content: space-between;
+  width: 100%;
+}
+
+.link-wrapper {
+  width: 100%;
+  height: 119px;
+  border-radius: 4px;
+  text-align: center;
+  background-size: cover;
+}
+
+.link-wrapper a {
+  text-decoration: none;
+  color: #ffffff;
+}
+
+.link-wrapper h1 {
+  line-height: 100px;
+  margin: 0;
+  transition: all 0.3s;
+}
+
+.link-wrapper p {
+  opacity: 0;
+  margin: 0;
+  transition: all 0.3s;
+}
+
+.link-wrapper :hover h1 {
+  transform: translateY(-15px);
+}
+
+.link-wrapper :hover p {
+  opacity: 1;
+  transform: translateY(-15px);
+}
+
+.order-link {
+  background-image: url("../images/assets/pizza-1.jpg");
+  margin-right: 6px;
+}
+
+.booking-link {
+  background-image: url("../images/assets/pizza-2.jpg");
+}
+
+.opening-wrapper {
+  width: 658px;
+  height: 120px;
+  border-radius: 4px;
+  background-color: #ff6b6b;
+  margin: 0 auto;
+  text-align: center;
+  color: #ffffff;
+  font-size: 14px;
+  text-transform: uppercase;
+  line-height: 120px;
+}
+
+.opening-wrapper h1 {
+  margin-top: 6px;
+  padding: 0;
+  transform: translateY(-10px);
+}
+
+.opening-wrapper p {
+  margin: 0;
+  padding: 0;
+  transform: translateY(-95px);
+  font-weight: 300;
+}
+
+/* Carousel opinion */
+.opinions-slider .slide {
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex: 0 0 50%;
+      flex: 0 0 50%;
+  height: 193px;
+  width: 100%;
+  margin: 50px auto;
+}
+
+.opinions-slider .image img {
+  max-width: 193px;
+  height: 100%;
+  object-fit: cover;
+  margin: 40px 40px 40px 0;
+  border-radius: 4px;
+}
+
+.text {
+  margin-top: 50px;
+}
+
+.signature {
+  font-style: italic;
+}
+
+.flickity-page-dots {
+  bottom: -50px;
+}
+
+/* Gallery */
+.gallery {
+  margin: 150px auto;
+}
+
+.gallery .row {
+  -ms-flex-pack: distribute;
+      justify-content: space-around;
+}
+
+.gallery img {
+  border-radius: 4px;
+  object-fit: cover;
+  height: 205px;
+  width: 205px;
+  margin-bottom: 10px;
+}
+
+.gallery .image {
+  position: relative;
+  z-index: 1;
+}
+
+.gallery .image::after {
+  content: "";
+  width: 100%;
+  height: 92%;
+  border-radius: 4px;
+  background: rgba(0, 0, 0, 0.5);
+  opacity: 0;
+  top: 0;
+  left: 0;
+  object-fit: cover;
+  position: absolute;
+  transition: all 0.3s;
+  z-index: 2;
+}
+
+.gallery .image:hover .icon {
+  opacity: 1;
+}
+
+.gallery .image:hover:after {
+  opacity: 1;
+}
+
+.gallery-link {
+  margin-left: 5px;
+  color: #ff6b6b;
+}
+
+.icon-wrapper {
+  position: absolute;
+  transform: translate(65px, -135px);
+  z-index: 3;
+}
+
+.icon {
+  font-size: 20px;
+  color: #ffffff;
+  opacity: 0;
+  margin: 10px;
+}
+
+.icon :hover {
+  color: #ff6b6b;
 }
 /*# sourceMappingURL=style.css.map */

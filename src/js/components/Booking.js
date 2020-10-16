@@ -175,8 +175,6 @@ export class Booking {
       if (typeof thisBooking.booked[date][hourBlock] == 'undefined') {
         thisBooking.booked[date][hourBlock] = [];
       }
-
-      //thisBooking.booked[date][hourBlock].push(table);
       for (let singleTable of table) {
         thisBooking.booked[date][hourBlock].push(singleTable);
       }
