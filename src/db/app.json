@@ -3,42 +3,42 @@
     {
       "id": "cake",
       "class": "small",
-      "name": "Zio Stefano's Doughnut",
+      "name": "Dyski SSD",
       "price": 9,
-      "description": "Treat yourself with this soft, freshly baked cookie. The recipe has been handed down from generation to generation in our family and it has won us several first place prizes in local competitions.",
+      "description": "Lorem ipsum dolor sit amet enim. Etiam ullamcorper. Suspendisse a pellentesque dui, non felis. Maecenas malesuada elit lectus felis, malesuada ultricies. Curabitur et ligula. Ut molestie a, ultricies porta urna. Vestibulum commodo volutpat a, ",
       "images": [
-        "<img class=\"active\" src=\"images/doughnut.svg\">"
+        "<img class=\"active\" src=\"images/pamiec-7.jpeg\">"
       ]
     },
     {
       "id": "breakfast",
       "class": "small",
-      "name": "Zia Giulia's Breakfast",
+      "name": "Karty pamięci",
       "price": 9,
-      "description": "There's no better way to start your day than indulging yourself with a cup of fresh Italian coffee and crispy waffels. Made just for you on the spot, this breakfast combo has been our guests' favorite for over 50 years.",
+      "description": "Lorem ipsum dolor sit amet enim. Etiam ullamcorper. Suspendisse a pellentesque dui, non felis. Maecenas malesuada elit lectus felis, malesuada ultricies. Curabitur et ligula. Ut molestie a, ultricies porta urna.",
       "images": [
-        "<img class=\"active\" src=\"images/breakfast.svg\">"
+        "<img class=\"active\" src=\"images/pamiec-2.jpeg\">"
       ],
       "params": {
         "coffee": {
-          "label": "Coffee type",
+          "label": "Typ karty pamięci",
           "type": "radios",
           "options": {
             "latte": {
-              "label": "Latte",
+              "label": "SD",
               "price": 1,
               "default": true
             },
             "cappuccino": {
-              "label": "Cappuccino",
+              "label": "microSD",
               "price": 1
             },
             "espresso": {
-              "label": "Espresso",
+              "label": "CF",
               "price": 1
             },
             "macchiato": {
-              "label": "Macchiato ",
+              "label": "MMC ",
               "price": 1
             }
           }
