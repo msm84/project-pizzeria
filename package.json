@@ -2,6 +2,9 @@
     "name": "fer-07-project",
     "version": "1.0.0",
     "description": "",
+    "engines": {
+      "node": "10.x"
+    },
     "main": "index.html",
     "scripts": {
         "init-project": "npm install && npm-run-all init:*",
